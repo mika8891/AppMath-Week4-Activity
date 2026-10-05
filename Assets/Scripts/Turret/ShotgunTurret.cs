@@ -29,6 +29,7 @@ public class ShotgunTurret : TurretBase
     {
         if (bulletPrefab == null) return;
 
+       // Calculate the direction from the turret to the target
         Vector3 spawnPos = muzzle != null ? muzzle.position : transform.position;
         Vector3 baseDir = target.transform.position - spawnPos;
         baseDir.z = 0f;
@@ -38,7 +39,7 @@ public class ShotgunTurret : TurretBase
         float step = pelletCount > 1 ? spreadAngle / (pelletCount - 1) : 0f;
 
         for (int i = 0; i < pelletCount; i++)
-        {
+        {   
             Vector3 dir = Quaternion.Euler(0f, 0f, start + step * i) * baseDir;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Instantiate(bulletPrefab, spawnPos, Quaternion.Euler(0f, 0f, angle));
