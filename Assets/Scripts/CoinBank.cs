@@ -23,7 +23,6 @@ public class CoinBank : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        // Remember the exact size you designed in the editor before anything moves!
         if (bankPanel != null) originalPanelScale = bankPanel.localScale;
     }
 
@@ -63,7 +62,7 @@ public class CoinBank : MonoBehaviour
         balance += 1;
         label.text = "Bank: " + balance;
 
-        // Trigger the juice/pop animation safely
+        // animation
         if (punchRoutine != null) StopCoroutine(punchRoutine);
         punchRoutine = StartCoroutine(JuiceAnimation());
     }
@@ -71,19 +70,19 @@ public class CoinBank : MonoBehaviour
     private IEnumerator JuiceAnimation()
     {
         float elapsed = 0f;
-        float duration = 0.2f; // Quick pop speed
+        float duration = 0.2f; // pop speed
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            // Scale up and back down using a smooth math wave
+            // smooth math curve for punch effect
             float scaleOffset = 1f + Mathf.Sin(t * Mathf.PI) * punchScale;
             bankPanel.localScale = originalPanelScale * scaleOffset;
             yield return null;
         }
 
-        // Snap safely back to your exact editor size
+        // Snap back to original scale 
         bankPanel.localScale = originalPanelScale;
     }
 }

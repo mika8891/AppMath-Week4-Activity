@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        //reduce player health by amount
         hp = Mathf.Max(0, hp - amount);
         bar.SetHp((float)hp / MaxHp);
         if (hp == 0)

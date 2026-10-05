@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// for drawing  the path so it can be seen in game display
 [RequireComponent(typeof(LineRenderer))]
 public class PathDrawer : MonoBehaviour
 {

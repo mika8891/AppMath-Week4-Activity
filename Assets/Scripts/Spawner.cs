@@ -4,8 +4,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Creature creaturePrefab;
-    [SerializeField] private Transform[] quadraticPoints; // Spawn, Ctrl, Target
-    [SerializeField] private Transform[] cubicPoints;     // Spawn, Ctrl1, Ctrl2, Target
+    [SerializeField] private Transform[] quadraticPoints; // SpawnA, PointA, Target
+    [SerializeField] private Transform[] cubicPoints;     // SpawnB, PointB1, PointB2, Target
     [SerializeField] private float interval = 1.5f, travelTime = 8f;
 
     private IEnumerator Start()
@@ -29,12 +29,14 @@ public class Spawner : MonoBehaviour
 
     private void DrawPath(Transform[] pts, Color col)
     {
+        // Draw a bezier curve using Gizmos
         if (pts == null || pts.Length < 3) return;
         var v = System.Array.ConvertAll(pts, p => p.position);
         Gizmos.color = col;
         Vector3 prev = v[0];
         for (int i = 1; i <= 30; i++)
         {
+            // Evaluate the bezier curve at t = i / 30
             Vector3 cur = Bezier.Evaluate(v, i / 30f);
             Gizmos.DrawLine(prev, cur);
             prev = cur;

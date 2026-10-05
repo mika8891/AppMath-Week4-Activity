@@ -18,11 +18,13 @@ public class Creature : MonoBehaviour
 
     private void Update()
     {
+        // Move the creature along the Bezier curve 
         t += Time.deltaTime / duration;
         transform.position = Bezier.Evaluate(points, t);
 
         if (t >= 1f)
         {
+            // when creature reaches the end of thhe path close to target, it will be destroyed and player will take damage
             PlayerHealth.Instance.TakeDamage(1);
             Destroy(gameObject);
         }
@@ -30,6 +32,7 @@ public class Creature : MonoBehaviour
 
     public void Kill()
     {
+        // creature killed = coin spawn
         if (dead) return;              
         dead = true;
         CoinBank.Instance.SpawnCoin(transform.position);

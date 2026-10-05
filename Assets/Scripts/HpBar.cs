@@ -11,9 +11,9 @@ public class HpBar : MonoBehaviour
 
     public void SetHp(float normalized)
     {
-        realFill.fillAmount = normalized;                 // snaps immediately
-        if (routine != null) StopCoroutine(routine);
-        routine = StartCoroutine(GhostDrain(normalized));
+        realFill.fillAmount = normalized;         // set the real fill immediately        
+        if (routine != null) StopCoroutine(routine); 
+        routine = StartCoroutine(GhostDrain(normalized)); // start the ghost fill drain
     }
 
     private IEnumerator GhostDrain(float target)
